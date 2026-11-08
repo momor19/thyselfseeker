@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thyself Seeker | El Eneagrama de Naranjo</title>
+    <style>
+        /* ESTÉTICA HOLY MOUNTAIN (JODOROWSKY) */
+        :root {
+            --bg-color: #0b0711; 
+            --holy-yellow: #f4c20d; 
+            --holy-crimson: #c3002f; 
+            --holy-blue: #0076a3; 
+            --text-light: #fdfbf7; 
+            --card-bg: rgba(22, 14, 33, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(195, 0, 47, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 118, 163, 0.15) 0%, transparent 40%);
+            color: var(--text-light);
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .holy-container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card-bg);
+            border: 2px solid var(--holy-yellow);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(244, 194, 13, 0.15);
+            position: relative;
+        }
+
+        .holy-container::before {
+            content: "▲";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-color);
+            padding: 0 10px;
+            color: var(--holy-yellow);
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--holy-yellow);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--holy-blue);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .intro-text {
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #d1c9db;
+            text-align: justify;
+        }
+
+        .adsense-placeholder {
+            width: 100%;
+            height: 90px;
+            background: rgba(255,255,255,0.03);
+            border: 1px dashed rgba(244, 194, 13, 0.3);
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn {
+            background: transparent;
+            border: 2px solid var(--holy-crimson);
+            color: var(--text-light);
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: var(--holy-crimson);
+            box-shadow: 0 0 15px var(--holy-crimson);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--holy-yellow);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-box {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: var(--text-light);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 18px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .option-card:hover {
+            border-color: var(--holy-blue);
+            background: rgba(0, 118, 163, 0.15);
+            transform: translateX(5px);
+        }
+
+        .result-box {
+            display: none;
+            animation: slowReveal 1s ease forwards;
+            text-align: left;
+        }
+
+        .eneatype-title {
+            font-size: 2.1rem;
+            color: var(--holy-yellow);
+            text-align: center;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .neurosis-tag {
+            text-align: center;
+            color: var(--holy-crimson);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .analysis-section {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: #e0dae7;
+        }
+
+        .analysis-section h3 {
+            color: var(--holy-blue);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(0, 118, 163, 0.3);
+            padding-bottom: 4px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slowReveal {
+            from { opacity: 0; filter: blur(5px); }
+            to { opacity: 1; filter: blur(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="adsense-placeholder">Espacio para Banner AdSense (Top)</div>
+
+    <div class="holy-container" id="main-stage">
+        
+        <!-- PANTALLA DE INICIO -->
+        <div id="intro-screen">
+            <h1>The Thyself Seeker</h1>
+            <div class="subtitle">Eneagrama Clínico: Carácter y Neurosis</div>
+            <p class="intro-text">
+                Bienvenido al templo de la autocomprensión. Este cuestionario no busca halagar tu ego ni encasillarte en etiquetas superficiales. Basado rigurosamente en la psiquiatría integrativa de <strong>Claudio Naranjo</strong> y bajo el prisma visual transmutador de la montaña sagrada, examinaremos las fijaciones y pasiones que distorsionan tu esencia. Responde con absoluta honestidad radical.
+            </p>
+            <button class="btn" onclick="startQuiz()">Comenzar el Viaje</button>
+        </div>
+
+        <!-- CUESTIONARIO INTERACTIVO -->
+        <div id="quiz-screen" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            <div class="question-box" id="question-container" style="display: block;">
+                <div class="question-text" id="question-text">Pregunta</div>
+                <div class="options-list" id="options-list"></div>
+            </div>
+        </div>
+
+        <!-- PANTALLA DE REZULTADOS -->
+        <div id="result-screen" class="result-box">
+            <div class="subtitle" style="text-align: center;">Tu Estructura Caracterial Revelada</div>
+            <div class="eneatype-title" id="res-eneatype">Eneatipo X</div>
+            <div class="neurosis-tag" id="res-neurosis">Pasión: X | Fijación: X</div>
+            
+            <div class="analysis-section">
+                <h3>El Núcleo de la Neurosis</h3>
+                <p id="res-core"></p>
+            </div>
+            
+            <div class="analysis-section">
+                <h3>Mecanismo de Defensa Principal</h3>
+                <p id="res-defense"></p>
+            </div>
+
+            <div class="analysis-section">
+                <h3>El Camino de Transmutación Alquímica</h3>
+                <p id="res-path"></p>
+            </div>
+
+            <center>
+                <button class="btn" onclick="window.location.reload()" style="border-color: var(--holy-blue); margin-top:20px;">Reiniciar Proceso</button>
+            </center>
+        </div>
+
+    </div>
+
+    <div class="adsense-placeholder">Espacio para Banner AdSense (Bottom)</div>
+
+    <script>
+        const questions = [
+            {
+                text: "¿Cuál de estas descripciones resuena más íntimamente con tu principal dificultad interna?",
+                options: [
+                    { text: "Una constante exigencia interna por hacer las cosas perfectas y corregir el error.", eneatipo: 1 },
+                    { text: "La necesidad compulsiva de complacer y ganarme el afecto de los demás olvidando mis necesidades.", eneatipo: 2 },
+                    { text: "Una obsesión por el rendimiento, el estatus y mantener una imagen impecable de éxito.", eneatipo: 3 }
+                ]
+            },
+            {
+                text: "Cuando experimentas un vacío emocional profundo, ¿hacia dónde se desvía tu conducta?",
+                options: [
+                    { text: "Hacia la melancolía, sintiendo que me falta algo único que los demás sí poseen.", eneatipo: 4 },
+                    { text: "Hacia el aislamiento mental, acumulando conocimientos para protegerme del mundo exterior.", eneatipo: 5 },
+                    { text: "Hacia la hipervigilancia y la duda constante, buscando peligros ocultos o figuras de autoridad.", eneatipo: 6 }
+                ]
+            },
+            {
