@@ -221,6 +221,31 @@
     </style>
 </head>
 <body>
+<script>
+  // Esta función se activa cuando pulsas el botón "Comenzar el Viaje"
+  function startQuiz() {
+    // Buscamos la pantalla de bienvenida y la de las preguntas
+    // (Nota: He usado los nombres estándar de tu diseño)
+    const bienvenida = document.querySelector('h1').closest('div') || document.body.children[1];
+    const preguntas = document.querySelector('h3') ? document.querySelector('h3').closest('div') : null;
+    
+    console.log("¡El viaje ha comenzado!");
+    
+    // Si encontramos las pantallas en tu página, escondemos una y mostramos la otra
+    if (bienvenida) {
+      bienvenida.style.display = 'none';
+    }
+    
+    // Buscamos cualquier elemento que empiece con la palabra "Pregunta" para mostrarlo
+    const elementos = document.body.getElementsByTagName('*');
+    for (let el of elementos) {
+      if (el.textContent.includes('Pregunta') || el.textContent.includes('Tu Estructura')) {
+        let contenedor = el.parentElement;
+        if(contenedor) contenedor.style.display = 'block';
+      }
+    }
+  }
+</script>
 
     <div class="adsense-placeholder">Espacio para Banner AdSense (Top)</div>
 
